@@ -14,4 +14,11 @@
 }
 %ENDFOR
 
++ (void)setIndentingFormat:(int)format
+{
+%FOREACH port in ports
+	[%«port.binding.className»_envelope setIndentingFormat:format];
+%ENDFOR
+}
+
 @end

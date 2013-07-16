@@ -107,6 +107,8 @@
 
 + (%«className»_envelope *)sharedInstance;
 
++ (void)setIndentingFormat:(int)format;
+
 - (NSString *)serializedFormUsingHeaderElements:(NSDictionary *)headerElements bodyElements:(NSDictionary *)bodyElements bodyKeys:(NSArray *)bodyKeys;
 
 @end

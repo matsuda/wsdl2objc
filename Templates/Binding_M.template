@@ -504,6 +504,7 @@
 %ENDFOR
 
 static %«className»_envelope *%«className»SharedEnvelopeInstance = nil;
+static int %«className»_indentFormat = 0;
 @implementation %«className»_envelope
 
 + (%«className»_envelope *)sharedInstance
@@ -513,6 +514,11 @@ static %«className»_envelope *%«className»SharedEnvelopeInstance = nil;
 	}
 	
 	return %«className»SharedEnvelopeInstance;
+}
+
++ (void)setIndentingFormat:(int)format
+{
+    %«className»_indentFormat = format;
 }
 
 - (NSString *)serializedFormUsingHeaderElements:(NSDictionary *)headerElements bodyElements:(NSDictionary *)bodyElements bodyKeys:(NSArray *)bodyKeys
@@ -567,7 +573,7 @@ static %«className»_envelope *%«className»SharedEnvelopeInstance = nil;
 	
 	xmlChar *buf;
 	int size;
-	xmlDocDumpFormatMemory(doc, &buf, &size, 1);
+	xmlDocDumpFormatMemory(doc, &buf, &size, %«className»_indentFormat);
 	
 	NSString *serializedForm = [NSString stringWithCString:(const char*)buf encoding:NSUTF8StringEncoding];
 	xmlFree(buf);

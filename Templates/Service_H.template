@@ -19,4 +19,6 @@
 + (%«port.binding.className» *)%«port.binding.className»;
 %ENDFOR
 
++ (void)setIndentingFormat:(int)format;
+
 @end
