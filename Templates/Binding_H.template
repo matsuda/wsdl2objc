@@ -35,6 +35,7 @@
 @property (nonatomic, retain) NSMutableDictionary *customHeaders;
 @property (nonatomic, retain) id<SSLCredentialsManaging> sslManager;
 @property (nonatomic, retain) SOAPSigner *soapSigner;
+@property (nonatomic, retain) %«className»Operation *operation;
 
 + (NSTimeInterval) defaultTimeout;
 
@@ -42,6 +43,7 @@
 - (void)sendHTTPCallUsingBody:(NSString *)body soapAction:(NSString *)soapAction forOperation:(%«className»Operation *)operation;
 - (void)addCookie:(NSHTTPCookie *)toAdd;
 - (NSString *)MIMEType;
+- (void)cancel;
 
 %FOREACH operation in operations
 - (%«className»Response *)%«operation.invokeString»;

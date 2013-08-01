@@ -46,6 +46,13 @@
 %ENDIF
 }
 
+- (void)cancel
+{
+	[_operation.urlConnection cancel];
+	[_operation setDelegate:nil];
+	[_operation cancel];
+}
+
 - (void)addCookie:(NSHTTPCookie *)toAdd
 {
 	if(toAdd != nil) {
@@ -143,6 +150,7 @@
 	
 	operation.urlConnection = connection;
 	[connection release];
+	self.operation = operation;
 }
 
 - (void) dealloc
@@ -152,6 +160,7 @@
 	[address release];
 	[cookies release];
 	[customHeaders release];
+	[_operation release];
 	[super dealloc];
 }
 
