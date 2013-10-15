@@ -35,7 +35,7 @@
 @property (nonatomic, retain) NSMutableDictionary *customHeaders;
 @property (nonatomic, retain) id<SSLCredentialsManaging> sslManager;
 @property (nonatomic, retain) SOAPSigner *soapSigner;
-@property (nonatomic, retain) %«className»Operation *operation;
+@property (nonatomic, assign) %«className»Operation *operation;
 
 + (NSTimeInterval) defaultTimeout;
 

@@ -160,7 +160,6 @@
 	[address release];
 	[cookies release];
 	[customHeaders release];
-	[_operation release];
 	[super dealloc];
 }
 
