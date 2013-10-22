@@ -418,8 +418,24 @@ _content = nil;
 					xmlFree(instanceType);
 				}
 				
+%IF element.useNill
+				BOOL nilable = NO;
+				xmlChar *prop = xmlGetNsProp(cur, (const xmlChar *) "nil", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if (prop != NULL) {
+					NSString *propString = [NSString stringWithCString:(char*)prop encoding:NSUTF8StringEncoding];
+					if ([propString isEqualToString:@"true"]) {
+					nilable = YES;
+					}
+				}
+%IF element.type.isComplexTypeString
 				id newChild = [elementClass deserializeNode:cur];
-				
+%ELSE
+				id newChild = [elementClass deserializeNode:cur nillable:nilable];
+%ENDIF
+%ELSE
+				id newChild = [elementClass deserializeNode:cur];
+%ENDIF
+
 %IF element.useAnArray
 				if(newChild != nil) [self.%«element.name» addObject:newChild];
 %ELSE

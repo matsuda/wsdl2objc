@@ -290,6 +290,17 @@
 		seqElement.maxOccurs = 0;
 	}
 	
+    NSXMLNode *nillable = [el attributeForName:@"nillable"];
+    if(nillable != nil) {
+        if([[nillable stringValue] isEqualToString:@"true"]) {
+            seqElement.nillable = YES;
+        } else {
+            seqElement.nillable = NO;
+        }
+    } else {
+        seqElement.nillable = NO;
+    }
+
 	[type.sequenceElements addObject:seqElement];
     [seqElement release];
 }

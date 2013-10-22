@@ -29,6 +29,7 @@
 	NSString *name;
 	NSString *wsdlName;
 	USType * type;
+    BOOL nillable;
 }
 
 @property (nonatomic) NSInteger minOccurs; /* -1 represents 'unbounded' */
@@ -36,8 +37,10 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, retain) NSString *wsdlName;
 @property (nonatomic, assign) USType * type;
+@property (nonatomic) BOOL nillable;
 
 - (NSString *)uname;
 - (NSString *)useAnArray;
+- (NSString *)useNill;
 
 @end

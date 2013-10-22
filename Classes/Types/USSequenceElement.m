@@ -30,6 +30,7 @@
 @synthesize name;
 @synthesize wsdlName;
 @synthesize type;
+@synthesize nillable;
 
 - (void) dealloc
 {
@@ -47,6 +48,7 @@
 	newSeqElement.name = self.name;
 	newSeqElement.wsdlName = self.wsdlName;
 	newSeqElement.type = self.type;
+    newSeqElement.nillable = self.nillable;
 	
 	return newSeqElement;
 }
@@ -76,6 +78,11 @@
 	}
 	
 	return @"true";
+}
+
+- (NSString *)useNill
+{
+    return self.nillable ? @"true" : @"false";
 }
 
 @end
