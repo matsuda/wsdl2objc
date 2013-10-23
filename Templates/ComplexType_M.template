@@ -422,16 +422,16 @@ _content = nil;
 				id newChild = [elementClass deserializeNode:cur];
 %ELSE
 %IF element.useNill
-				BOOL nilable = NO;
+				BOOL nillable = NO;
 				xmlChar *prop = xmlGetNsProp(cur, (const xmlChar *) "nil", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
 				if (prop != NULL) {
 					NSString *propString = [NSString stringWithCString:(char*)prop encoding:NSUTF8StringEncoding];
 					if ([propString isEqualToString:@"true"]) {
-						nilable = YES;
+						nillable = YES;
 					}
 					xmlFree(prop);
 				}
-				id newChild = [elementClass deserializeNode:cur nillable:nilable];
+				id newChild = [elementClass deserializeNode:cur nillable:nillable];
 %ELSE
 				id newChild = [elementClass deserializeNode:cur];
 %ENDIF
