@@ -118,9 +118,10 @@
 	[panel setCanChooseDirectories:NO];
 	[panel setResolvesAliases:NO]; // When set to YES, refuses to select .wsdl symlink pointing to .xml file
 	[panel setAllowsMultipleSelection:NO];
+	[panel setAllowedFileTypes:[NSArray arrayWithObject:@"wsdl"]];
 	
-	if([panel runModalForTypes:[NSArray arrayWithObject:@"wsdl"]] == NSOKButton) {
-		NSString *chosenPath = [[panel filenames] lastObject];
+	if([panel runModal] == NSOKButton) {
+		NSString *chosenPath = [[[panel URLs] lastObject] path];
 		NSUserDefaultsController *defaults = [NSUserDefaultsController sharedUserDefaultsController];
 		[defaults setValue:chosenPath forKeyPath:@"values.wsdlPath"];
 	}
@@ -133,9 +134,10 @@
 	[panel setCanChooseDirectories:YES];
 	[panel setResolvesAliases:YES];
 	[panel setAllowsMultipleSelection:NO];
+	[panel setAllowedFileTypes:nil];
 	
-	if([panel runModalForTypes:nil] == NSOKButton) {
-		NSString *chosenPath = [[panel filenames] lastObject];
+	if([panel runModal] == NSOKButton) {
+		NSString *chosenPath = [[[panel URLs] lastObject] path];
 		NSUserDefaultsController *defaults = [NSUserDefaultsController sharedUserDefaultsController];
 		[defaults setValue:chosenPath forKeyPath:@"values.outPath"];
 	}
