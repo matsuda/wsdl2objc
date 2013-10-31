@@ -418,9 +418,6 @@ _content = nil;
 					xmlFree(instanceType);
 				}
 				
-%IF element.type.isComplexTypeString
-				id newChild = [elementClass deserializeNode:cur];
-%ELSE
 %IF element.useNill
 				BOOL nillable = NO;
 				xmlChar *prop = xmlGetNsProp(cur, (const xmlChar *) "nil", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
@@ -431,10 +428,9 @@ _content = nil;
 					}
 					xmlFree(prop);
 				}
-				id newChild = [elementClass deserializeNode:cur nillable:nillable];
+				id newChild = nillable ? nil : [elementClass deserializeNode:cur];
 %ELSE
 				id newChild = [elementClass deserializeNode:cur];
-%ENDIF
 %ENDIF
 
 %IF element.useAnArray

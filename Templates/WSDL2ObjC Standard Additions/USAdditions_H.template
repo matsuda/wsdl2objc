@@ -19,7 +19,6 @@
 - (const xmlChar *)xmlString;
 - (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 + (NSString *)deserializeNode:(xmlNodePtr)cur;
-+ (NSString *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable;
 
 @end
 
@@ -27,7 +26,6 @@
 
 - (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 + (NSNumber *)deserializeNode:(xmlNodePtr)cur;
-+ (NSNumber *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable;
 
 @end
 
@@ -36,7 +34,6 @@
 - (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 + (NSDecimalNumber *)deserializeString:(NSString *)stringValue;
 + (NSDecimalNumber *)deserializeNode:(xmlNodePtr)cur;
-+ (NSDecimalNumber *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable;
 
 @end
 
@@ -44,7 +41,6 @@
 
 - (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 + (NSDate *)deserializeNode:(xmlNodePtr)cur;
-+ (NSDate *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable;
 
 @end
 
@@ -52,7 +48,6 @@
 
 - (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 + (NSData *)deserializeNode:(xmlNodePtr)cur;
-+ (NSData *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable;
 
 @end
 
@@ -73,7 +68,6 @@
 
 - (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 + (USBoolean *)deserializeNode:(xmlNodePtr)cur;
-+ (USBoolean *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable;
 
 @end
 

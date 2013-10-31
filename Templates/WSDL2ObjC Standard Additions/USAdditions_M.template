@@ -79,19 +79,6 @@
 	return [elementString stringByUnescapingXML];
 }
 
-+ (NSString *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable
-{
-	xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-	NSString *elementString = nillable ? nil : @"";
-
-	if(elementText != NULL) {
-		elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-		xmlFree(elementText);
-	}
-
-	return [elementString stringByUnescapingXML];
-}
-
 @end
 
 @implementation NSNumber (USAdditions)
@@ -117,20 +104,6 @@
 {
 	NSString *stringValue = [NSString deserializeNode:cur];
 	return [NSNumber numberWithDouble:[stringValue doubleValue]];
-}
-
-+ (NSNumber *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable
-{
-	if (nillable) {
-		NSString *stringValue = [NSString deserializeNode:cur nillable:nillable];
-		if (stringValue) {
-			return [NSNumber numberWithDouble:[stringValue doubleValue]];
-		} else {
-			return nil;
-		}
-	} else {
-		return [self deserializeNode:cur];
-	}
 }
 
 @end
@@ -166,20 +139,6 @@
     return [NSDecimalNumber decimalNumberWithString:stringValue];
 }
 
-+ (NSDecimalNumber *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable
-{
-	if (nillable) {
-		NSString *stringValue = [NSString deserializeNode:cur nillable:nillable];
-		if (stringValue) {
-			return [NSDecimalNumber decimalNumberWithString:stringValue];
-		} else {
-			return nil;
-		}
-	} else {
-		return [self deserializeNode:cur];
-	}
-}
-
 @end
 
 @implementation NSDate (USAdditions)
@@ -204,20 +163,6 @@
 + (NSDate *)deserializeNode:(xmlNodePtr)cur
 {
 	return [NSDate dateWithISO8601String:[NSString deserializeNode:cur]];
-}
-
-+ (NSDate *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable
-{
-	if (nillable) {
-		NSString *stringValue = [NSString deserializeNode:cur nillable:nillable];
-		if (stringValue) {
-			return [NSDate dateWithISO8601String:stringValue];
-		} else {
-			return nil;
-		}
-	} else {
-		return [self deserializeNode:cur];
-	}
 }
 
 @end
@@ -252,24 +197,6 @@
 		}
 	}
 	
-	return nil;
-}
-
-+ (NSData *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable
-{
-	if(cur != NULL)
-	{
-		if (nillable) {
-			NSString *deserializedStringResult = [NSString deserializeNode:cur nillable:nillable];
-			if(deserializedStringResult != nil)
-			{
-				return [NSData dataWithBase64EncodedString:deserializedStringResult];
-			}
-		} else {
-			return [self deserializeNode:cur];
-		}
-	}
-
 	return nil;
 }
 
@@ -427,22 +354,6 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 		return [[[USBoolean alloc] initWithBool:NO] autorelease];
 	}
 	
-	return nil;
-}
-
-+ (USBoolean *)deserializeNode:(xmlNodePtr)cur nillable:(BOOL)nillable
-{
-	if (nillable) {
-		NSString *stringValue = [NSString deserializeNode:cur nillable:nillable];
-		if([stringValue isEqualToString:@"true"]) {
-			return [[[USBoolean alloc] initWithBool:YES] autorelease];
-		} else if([stringValue isEqualToString:@"false"]) {
-			return [[[USBoolean alloc] initWithBool:NO] autorelease];
-		}
-	} else {
-		return [self deserializeNode:cur];
-	}
-
 	return nil;
 }
 
